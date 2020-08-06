@@ -1,26 +1,91 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import {useState} from 'react';
+import MapGL,{Marker} from 'react-map-gl';
+import Pin from './pin';
+import Dot from './pathDot'
+import PlaneTravel from './planeTravel'
+const MAPBOX_TOKEN = 'pk.eyJ1Ijoia2FydGlrbWFsaWsiLCJhIjoiY2sxdnNubXJrMGkwcTNibzZrNWkyMm9waiJ9.U-3RSbfauGFCAhzy415Lrg'
 
-function App() {
+const App = () => {
+  const [viewport, setViewport] = useState({
+    latitude: 22,
+    longitude: 22,
+    zoom: 2.5
+  });
+  const [r1,setR1] = useState(false)
+  const [r2,setR2] = useState(false)
+  const [r3,setR3] = useState(false)
+  const [r4,setR4] = useState(false)
+  const [r5,setR5] = useState(false)
+  const [pathColor,setPathColor] = useState("#000")
+  let num = 0;
+  let path = new Array(76).fill(0);
+  const launchR1 = () =>{
+    setR1(true)
+    setPathColor("#0d0")
+  }
+  const launchR2 = () =>{
+    setR2(true)
+    setPathColor("#01e")
+  }
+  const launchR3 = () =>{
+    setR3(true)
+    setPathColor("#00e")
+  }
+  const launchR4 = () =>{
+    setR4(true)
+    setPathColor("#000")
+  }
+  const launchR5 = () =>{
+    setR5(true)
+    setPathColor("#a00")
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+    <MapGL
+      {...viewport}
+      width="100vw"
+      height="80vh"
+      mapStyle="mapbox://styles/mapbox/streets-v11"
+      onViewportChange={nextViewport => setViewport(nextViewport)}
+      mapboxApiAccessToken={MAPBOX_TOKEN}
+    >
+      <Marker
+          longitude={2.21}
+          latitude={46.22}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Pin size={20} />
+        </Marker>
+        {path.map(()=>{
+          {num = num+1}
+          return(
+            <Marker
+              longitude={2.21+num*1}
+              latitude={46.22+num*-0.21}
+            >
+              <Dot size={5} color={pathColor}></Dot>
+            </Marker>
+          )
+        })}
+        {r1?<PlaneTravel color="#0d0"></PlaneTravel>:null}
+        {r2?<PlaneTravel color="#01e"></PlaneTravel>:null}
+        {r3?<PlaneTravel color="#00e"></PlaneTravel>:null}
+        {r4?<PlaneTravel color="#000"></PlaneTravel>:null}
+        {r5?<PlaneTravel color="#a00"></PlaneTravel>:null}
+        <Marker
+          longitude={76.7821}
+          latitude={30.3752}
+        >
+          <Pin size={20} />
+        </Marker>
+    </MapGL>
+    <button onClick={launchR1}>Lanch Rafale 1</button>
+    <button onClick={launchR2}>Lanch Rafale 2</button>
+    <button onClick={launchR3}>Lanch Rafale 3</button>
+    <button onClick={launchR4}>Lanch Rafale 4</button>
+    <button onClick={launchR5}>Lanch Rafale 5</button>
+    </>
   );
 }
 
-export default App;
+export default App
