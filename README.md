@@ -1,4 +1,4 @@
-#Rafale App
+# Rafale App
 
 >>yarn <br>
 >>yarn start
@@ -11,7 +11,7 @@ or
 
 [![Watch the video]()](https://drive.google.com/file/d/1mfGA-jPM7JrVWsf9GCjRVOtOqS1KdY_m/preview)
 
-###Features
+### Features
 
 1. 5 Rafales.
 2. Different color for all rafales and their respective path.
