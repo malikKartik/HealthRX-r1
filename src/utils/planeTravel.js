@@ -1,6 +1,6 @@
 import React from 'react'
 import {Marker} from 'react-map-gl';
-import Plane from './plane'
+import Plane from '../pins/plane'
 const PlaneTravel = (props) =>{
     const [pos,setPos] = React.useState({
         lon: 2.21,
